@@ -59,7 +59,6 @@ app.get('/adddata1', (req, res) => {
 //* Insert data 2
 app.get('/adddata2', (req, res) => {
     let post = {title: "name", body: "My name is ibraheem adisa"};
-    // the questions mark (?) is basically like a placeholder that we are putting beside the sql and the post is that post data
     let sql  = 'INSERT INTO datas SET ?';
     let query = db.query(sql, post, (err, result) => {
         if(err) throw err;
@@ -69,6 +68,45 @@ app.get('/adddata2', (req, res) => {
     });
 });
 
+
+//* GETTING THE DATAS FROM THE DATABASE.
+app.get('/getdatas', (req, res) => {
+    let sql  = 'SELECT * FROM datas';
+    let query = db.query(sql, (err, results) => {
+        if(err) throw err;
+        console.log(results);
+        res.send('All the datas was fetched...');
+
+    });
+});
+
+
+
+//* GETTING A single data from the database.
+app.get('/getdata/:id', (req, res) => {
+    // will select the id that is passed in the url.
+    let sql  = `SELECT * FROM datas WHERE id = ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send('All the datas was fetched...');
+
+    });
+});
+
+
+//* Updating DATA.
+app.get('/updatedata/:id', (req, res) => {
+    let newTitle = 'Updated Title';
+    // will select the id that is passed in the url and it update the title.
+    let sql  = `UPDATE datas SET title = '${newTitle}' WHERE id = ${req.params.id}`;
+    let query = db.query(sql, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send('Data Updated...');
+
+    });
+});
 
 
 app.listen('8000', () => {
