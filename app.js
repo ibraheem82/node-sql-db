@@ -55,6 +55,22 @@ app.get('/adddata1', (req, res) => {
     });
 });
 
+
+//* Insert data 2
+app.get('/adddata2', (req, res) => {
+    let post = {title: "name", body: "My name is ibraheem adisa"};
+    // the questions mark (?) is basically like a placeholder that we are putting beside the sql and the post is that post data
+    let sql  = 'INSERT INTO datas SET ?';
+    let query = db.query(sql, post, (err, result) => {
+        if(err) throw err;
+        console.log(result);
+        res.send('Data 2 added......');
+
+    });
+});
+
+
+
 app.listen('8000', () => {
     console.log(`Server started on port 8000`);
 });
